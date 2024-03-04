@@ -21,12 +21,20 @@ export const appApi = createApi({
         body: userDetails,
       }),
     }),
+    addExpense: builder.mutation({
+      query: (expenseDetails) => ({
+        url: "/add-expense",
+        method: "POST",
+        body: expenseDetails,
+      }),
+    }),
   }),
 });
 
 export const {
   useSignupUserMutation,
   useLoginUserMutation,
+  useAddExpenseMutation,
  
 } = appApi;
 

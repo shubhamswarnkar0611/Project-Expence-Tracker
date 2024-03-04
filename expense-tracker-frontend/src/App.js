@@ -1,10 +1,10 @@
-import React, { useState, useEffect ,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Signup from "./pages/signup/Signup";
 import { AppContext } from "./context/appContext";
-import AddExpense from "./components/AddExpense";
+import AddExpense from "./pages/addExpense/AddExpense";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -17,30 +17,23 @@ function App() {
     } else {
       navigate("/login");
     }
-  }, [navigate,ProtectedRoutes]);
-
-  function ProtectedRoutes() {
-    return userToken ? (
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/add-expense" element={<AddExpense />} />
-      </Routes>
-    ) : (
-      <Navigate to="/login"  />
-    );
-  }
+  }, [navigate]);
 
   return (
     <AppContext.Provider value={{ userToken, setUserToken }}>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<ProtectedRoutes />} />
+        {!userToken && (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </>
+        )}
+
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/add-expense" element={<AddExpense />} />
       </Routes>
     </AppContext.Provider>
   );
 }
-
-
 
 export default App;
