@@ -27,7 +27,6 @@ exports.signup = async (req, res, next) => {
       msg = e.message;
     }
     res.status(400).json(msg);
-    
   }
 };
 
@@ -54,7 +53,6 @@ exports.login = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
   try {
     userId = req.user;
-    console.log(userId);
     const userDetail = await Users.findByPk(userId);
     res.send(userDetail);
   } catch (err) {

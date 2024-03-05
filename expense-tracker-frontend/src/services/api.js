@@ -21,6 +21,16 @@ export const appApi = createApi({
         body: userDetails,
       }),
     }),
+
+    getUser: builder.mutation({
+      query: (userToken) => ({
+        url: "/get-user",
+        method: "POST",
+        body: userToken,
+      }),
+    }),
+
+    //Add-Expense
     addExpense: builder.mutation({
       query: (expenseDetails) => ({
         url: "/add-expense",
@@ -28,13 +38,33 @@ export const appApi = createApi({
         body: expenseDetails,
       }),
     }),
+    //get-expense
+    getExpense: builder.mutation({
+      query: (userToken) => ({
+        url: "/get-expense",
+        method: "POST",
+        body: userToken,
+      }),
+    }),
+    //delete-expense
+    deleteExpense: builder.mutation({
+      query: (userToken,expenseId) => ({
+        url: "/delete-expense",
+        method: "POST",
+        body: userToken,expenseId
+      }),
+    }),
+
   }),
 });
 
 export const {
   useSignupUserMutation,
   useLoginUserMutation,
+  useGetUserMutation,
   useAddExpenseMutation,
+  useGetExpenseMutation,
+  useDeleteExpenseMutation,
  
 } = appApi;
 
