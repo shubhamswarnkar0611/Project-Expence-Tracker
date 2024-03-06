@@ -13,7 +13,7 @@ exports.addExpense = async (req, res) => {
     });
     res.status(200).json(expenceDetails);
   } catch (err) {
-    res.status(5001).json(err.message);
+    res.status(501).json(err.message);
   }
 };
 

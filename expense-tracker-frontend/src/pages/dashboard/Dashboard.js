@@ -25,7 +25,7 @@ const Dashboard = () => {
     if (user) {
       handleGetExpense();
     }
-  }, [user]);
+  }, [setUser]);
 
   return (
     <>

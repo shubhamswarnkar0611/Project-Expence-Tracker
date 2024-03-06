@@ -20,7 +20,7 @@ const AddExpense = () => {
       toast.success("Expense Added Successfully");
       
     } catch (e) {
-      toast.error(e.message);
+      alert(e.message);
     }
   }
 
@@ -37,11 +37,11 @@ const AddExpense = () => {
                     AddExpense
                   </h1>
                 </div>
-                <Toaster />
+                
                 <div className=" my-10">
                   <div className="font-bold text-xl p-4 flex justify-center lg:justify-evenly items-center   ">
                     <form
-                      onSubmit={!isLoading && handleAddExpense}
+                      onSubmit={!isLoading ? handleAddExpense : null }
                       className="bg-neutral-900 p-10 rounded-2xl "
                     >
                       <div className="relative size-full  my-8 ">
@@ -99,6 +99,7 @@ const AddExpense = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

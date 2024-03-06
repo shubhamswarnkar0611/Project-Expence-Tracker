@@ -54,6 +54,22 @@ export const appApi = createApi({
         body: userToken,expenseId
       }),
     }),
+    //purchase-membership
+    purchaseMembership:builder.mutation({
+      query: (userToken) => ({
+        url: "/purchase-membership",
+        method: "POST",
+        body: userToken
+      }),
+    }),
+    //update-purchase
+    updateOrder:builder.mutation({
+      query: (userToken,orderDetails) => ({
+        url: "/update-order",
+        method: "POST",
+        body: userToken,orderDetails
+      }),
+    })
 
   }),
 });
@@ -65,6 +81,8 @@ export const {
   useAddExpenseMutation,
   useGetExpenseMutation,
   useDeleteExpenseMutation,
+  usePurchaseMembershipMutation,
+  useUpdateOrderMutation,
  
 } = appApi;
 

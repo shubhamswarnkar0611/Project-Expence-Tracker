@@ -9,7 +9,7 @@ const ExpenseList = (props) => {
 
   async function handleDelete(e) {
     e.preventDefault();
-    // if (!window.confirm("Are you sure?")) return;
+    
     try {
       const msg = await deleteExpense({
         userToken,

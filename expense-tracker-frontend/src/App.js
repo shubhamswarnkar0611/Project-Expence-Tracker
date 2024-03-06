@@ -21,7 +21,7 @@ function App() {
       setUserToken(token);
       handleGetUser();
     }
-  }, []);
+  }, [setUser]);
 
   async function handleGetUser() {
     const userToken = localStorage.getItem("userToken");
