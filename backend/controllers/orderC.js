@@ -19,7 +19,7 @@ exports.purchaseMembership = (req, res) => {
         status: "PENDING",
         UserId: req.user,
       });
-      res.status(201).json({ orderDetails, keyId: rzp.key_id });
+      res.status(201).json({ orderDetails, keyId: rzp.key_id , amount });
     } catch (err) {
       res.status(501).json(err);
     }

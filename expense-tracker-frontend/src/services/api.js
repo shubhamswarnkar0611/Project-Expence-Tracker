@@ -69,6 +69,12 @@ export const appApi = createApi({
         method: "POST",
         body: userToken,orderDetails
       }),
+    }),
+    showLeaderboard:builder.mutation({
+      query: () => ({
+        url: "/show-leaderboard",
+        method: "GET",
+      }),
     })
 
   }),
@@ -83,6 +89,7 @@ export const {
   useDeleteExpenseMutation,
   usePurchaseMembershipMutation,
   useUpdateOrderMutation,
+  useShowLeaderboardMutation
  
 } = appApi;
 

@@ -24,7 +24,7 @@ const ExpenseList = (props) => {
 
   return (
     <>
-      <div className="bg-neutral-900 w-72 h-40 m-2 rounded-xl ">
+      <div className="bg-neutral-900 w-72 h-40 m-2 rounded-xl hover:bg-neutral-800 ">
         <div className="flex justify-between">
           <Toaster />
           <h1 className="text-lg p-2 px-4 font-semibold text-orange-400">
@@ -37,7 +37,7 @@ const ExpenseList = (props) => {
           </h1>
         </div>
         <div className="flex justify-start">
-          <h1 className="text-sm p-2  text-gray-300">
+          <h1 className="text-sm py-2 px-4   text-gray-300">
             Desc-{props.expense.description}
           </h1>
         </div>

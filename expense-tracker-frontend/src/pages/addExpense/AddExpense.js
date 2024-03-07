@@ -1,5 +1,6 @@
 import React,{useContext} from "react";
 import { useAddExpenseMutation } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import SideBar from "../../components/SideBar";
 import Header from "../../components/Header";
@@ -7,6 +8,7 @@ import { AppContext } from "../../context/appContext";
 
 const AddExpense = () => {
   const [addExpense, { isLoading }] = useAddExpenseMutation();
+  const navigate = useNavigate();
   const {userToken}=useContext(AppContext);
 
   async function handleAddExpense(e) {
@@ -18,9 +20,10 @@ const AddExpense = () => {
       const expenseDetails = await addExpense({ spent, description, category ,userToken });
       if (expenseDetails.error) toast.error("Opps Something Went Worng");
       toast.success("Expense Added Successfully");
+      navigate("/")
       
     } catch (e) {
-      alert(e.message);
+      toast.error(e.message);
     }
   }
 

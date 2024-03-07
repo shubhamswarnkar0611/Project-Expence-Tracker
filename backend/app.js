@@ -7,7 +7,9 @@ const bodyParser = require('body-parser');
 const userRouter = require('./routes/usersR');
 const expenseRouter = require('./routes/expenseR');
 const orderRouter = require('./routes/orderR');
-const sequelize = require('./utils/database')
+const premiumRouter = require('./routes/premiumR');
+const sequelize = require('./utils/database');
+
 
 const app = express();
 
@@ -16,7 +18,10 @@ app.use(bodyParser.json({extended: false}));
 
 app.use(userRouter);
 app.use(expenseRouter);
-app.use(orderRouter)
+app.use(orderRouter);
+app.use(premiumRouter);
+
+
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
