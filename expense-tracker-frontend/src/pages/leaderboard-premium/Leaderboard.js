@@ -71,7 +71,7 @@ const Leaderboard = () => {
                               >
                                 {user.name}
                               </th>
-                              <td class="px-4 py-4">{user.totalSpent}</td>
+                              <td class="px-4 py-4">₹ {user.totalSpent}</td>
                             </tr>
                           );
                         })

@@ -19,7 +19,7 @@ const AddExpense = () => {
     try {
       const expenseDetails = await addExpense({ spent, description, category ,userToken });
       if (expenseDetails.error) toast.error("Opps Something Went Worng");
-      toast.success("Expense Added Successfully");
+      else toast.success("Expense Added Successfully");
       navigate("/")
       
     } catch (e) {

@@ -2,6 +2,8 @@ const Users = require("../models/usersM");
 const bcrypt = require("bcrypt");
 const JWT_SECRETE = "$ecreteHai"; // use it in .env file
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 exports.signup = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -59,3 +61,29 @@ exports.getUser = async (req, res, next) => {
     console.log(err.message);
   }
 };
+
+exports.forgotPassword = async (req, res, next) => {
+ try{
+  const transporter = nodemailer.createTransport({
+   service:"gmail",
+    auth: {
+        user: process.env.SMTP_KEY ,
+        pass: process.env.SMTP_SECRET
+    }
+}); 
+    const info = await transporter.sendMail({
+      from: '"Spent Wise 👻" <Spentwise@gmail.com>', // sender address
+      to: "iamshubham0611@gmail.com",
+      subject: "Forgot Password", // Subject line
+      text: "Reset-password", // plain text body
+      html: "<b>77898</b>", // html body
+    });
+  
+    console.log("Message sent: %s", info);
+    res.json(info)
+  }catch(err){
+    console.log(err);
+    res.status(500).send(err.message)
+  }
+
+}

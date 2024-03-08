@@ -7,6 +7,7 @@ import AddExpense from "./pages/addExpense/AddExpense";
 import Leaderboard from "./pages/leaderboard-premium/Leaderboard";
 import { AppContext } from "./context/appContext";
 import { useGetUserMutation } from "./services/api";
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
 
 function App() {
   const [userToken, setUserToken] = useState();
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/add-expense" element={<AddExpense />} />
         <Route path="/leaderboard" element={<Leaderboard />} />

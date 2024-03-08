@@ -7,6 +7,7 @@ const router =express.Router();
 router.post('/signup',UsersController.signup)
 router.post('/login',UsersController.login)
 router.post('/get-user',fetchUser,UsersController.getUser)
+router.get('/forgot-password',UsersController.forgotPassword)
 
 
 module.exports = router

@@ -70,9 +70,17 @@ export const appApi = createApi({
         body: userToken,orderDetails
       }),
     }),
+    //
     showLeaderboard:builder.mutation({
       query: () => ({
         url: "/show-leaderboard",
+        method: "GET",
+      })
+    }),
+    //forgot Password
+    forgotPassword:builder.mutation({
+      query: () => ({
+        url: "/forgot-password",
         method: "GET",
       }),
     })
@@ -89,7 +97,8 @@ export const {
   useDeleteExpenseMutation,
   usePurchaseMembershipMutation,
   useUpdateOrderMutation,
-  useShowLeaderboardMutation
+  useShowLeaderboardMutation,
+  useForgotPasswordMutation
  
 } = appApi;
 
