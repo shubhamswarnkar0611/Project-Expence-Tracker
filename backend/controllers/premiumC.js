@@ -51,21 +51,7 @@ const sequelize = require("../utils/database");
 // };
 exports.showLeaderboard = async (req, res) => {
    try{
-    const leaderboardOfUser = await User.findAll({
-        attributes: [
-          'id',
-          'name',
-          [sequelize.fn('sum', sequelize.col('expenses.spent')), 'spent']
-        ],
-        include: [
-          {
-            model: Expense,
-            attributes: []
-          }
-        ],
-        group: ['users.id'],
-        order: [['spent', 'DESC']]
-      });
+    const leaderboardOfUser = await User.findAll();
 
     res.status(200).json(leaderboardOfUser)
   
@@ -73,3 +59,27 @@ exports.showLeaderboard = async (req, res) => {
       res.status(501).json(err.message);
     }
   };
+// exports.showLeaderboard = async (req, res) => {
+//    try{
+//     const leaderboardOfUser = await User.findAll({
+//         attributes: [
+//           'id',
+//           'name',
+//           [sequelize.fn('sum', sequelize.col('expenses.spent')), 'spent']
+//         ],
+//         include: [
+//           {
+//             model: Expense,
+//             attributes: []
+//           }
+//         ],
+//         group: ['users.id'],
+//         order: [['spent', 'DESC']]
+//       });
+
+//     res.status(200).json(leaderboardOfUser)
+  
+//     } catch (err) {
+//       res.status(501).json(err.message);
+//     }
+//   };

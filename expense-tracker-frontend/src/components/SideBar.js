@@ -131,8 +131,7 @@ const SideBar = () => {
             )}
 
             <li>
-              <a
-                href="#"
+              <div
                 className="flex items-center p-2  text-white rounded-lg  hover:bg-orange-400 "
               >
                 <svg
@@ -156,7 +155,7 @@ const SideBar = () => {
                 >
                   LogOut
                 </button>
-              </a>
+              </div>
             </li>
           </ul>
         </div>
