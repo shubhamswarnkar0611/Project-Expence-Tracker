@@ -1,5 +1,4 @@
-import React, { useContext, useRef } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
 import "./Signup.css";
 import toast, { Toaster } from "react-hot-toast";
 import { FaUser, FaLock } from "react-icons/fa";

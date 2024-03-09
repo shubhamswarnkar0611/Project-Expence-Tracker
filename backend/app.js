@@ -3,11 +3,14 @@ const cors = require('cors');
 const User = require("./models/usersM")
 const Expense=require("./models/expenseM");
 const Order=require("./models/orderM")
+const ForgotPassword=require("./models/forgotPasswordM")
 const bodyParser = require('body-parser');
 const userRouter = require('./routes/usersR');
 const expenseRouter = require('./routes/expenseR');
 const orderRouter = require('./routes/orderR');
 const premiumRouter = require('./routes/premiumR');
+const forgotPasswordRouter = require('./routes/forgotPasswordR');
+
 const sequelize = require('./utils/database');
 
 
@@ -20,6 +23,7 @@ app.use(userRouter);
 app.use(expenseRouter);
 app.use(orderRouter);
 app.use(premiumRouter);
+app.use(forgotPasswordRouter);
 
 
 
@@ -28,6 +32,9 @@ Expense.belongsTo(User);
 
 User.hasMany(Order);
 Order.belongsTo(User);
+
+User.hasMany(ForgotPassword);
+ForgotPassword.belongsTo(User);
 
 
 

@@ -79,9 +79,10 @@ export const appApi = createApi({
     }),
     //forgot Password
     forgotPassword:builder.mutation({
-      query: () => ({
+      query: (email) => ({
         url: "/forgot-password",
-        method: "GET",
+        method: "POST",
+        body:email
       }),
     })
 

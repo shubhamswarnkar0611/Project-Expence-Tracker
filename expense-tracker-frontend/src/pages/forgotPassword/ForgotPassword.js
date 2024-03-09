@@ -16,9 +16,13 @@ const ForgotPassword = () => {
     const email = document.getElementById("email").value;
 
     try {
-     const mail = await forgotPassword();
-     console.log(mail);
+     const mail = await forgotPassword({email});
+     console.log(mail.error);
+     if (mail.error) return toast.error(mail?.error?.data);
+     toast.success(`A password reset link has been sent ${email}.`);
+     console.log(mail.data);
     } catch (err) {
+        console.log(err);
       toast.error(err);
     }
   }

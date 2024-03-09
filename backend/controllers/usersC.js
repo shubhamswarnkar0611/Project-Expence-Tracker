@@ -1,4 +1,5 @@
 const Users = require("../models/usersM");
+const ForgotPassword = require("../models/forgotPasswordM");
 const bcrypt = require("bcrypt");
 const JWT_SECRETE = "$ecreteHai"; // use it in .env file
 const jwt = require("jsonwebtoken");
@@ -45,6 +46,7 @@ exports.login = async (req, res, next) => {
     if (!comparePassword)
       return res.status(401).json("Invalid Username or Password");
 
+
     const authToken = jwt.sign({ userId: user.id }, JWT_SECRETE);
     res.status(200).json(authToken);
   } catch (err) {
@@ -62,28 +64,4 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
-exports.forgotPassword = async (req, res, next) => {
- try{
-  const transporter = nodemailer.createTransport({
-   service:"gmail",
-    auth: {
-        user: process.env.SMTP_KEY ,
-        pass: process.env.SMTP_SECRET
-    }
-}); 
-    const info = await transporter.sendMail({
-      from: '"Spent Wise 👻" <Spentwise@gmail.com>', // sender address
-      to: "iamshubham0611@gmail.com",
-      subject: "Forgot Password", // Subject line
-      text: "Reset-password", // plain text body
-      html: "<b>77898</b>", // html body
-    });
-  
-    console.log("Message sent: %s", info);
-    res.json(info)
-  }catch(err){
-    console.log(err);
-    res.status(500).send(err.message)
-  }
 
-}
