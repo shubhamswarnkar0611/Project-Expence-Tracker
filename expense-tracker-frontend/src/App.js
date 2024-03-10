@@ -5,6 +5,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Signup from "./pages/signup/Signup";
 import AddExpense from "./pages/addExpense/AddExpense";
 import Leaderboard from "./pages/leaderboard-premium/Leaderboard";
+import DayToDayExpenses from "./pages/dayToDayExpense/DayToDayExpenses";
 import { AppContext } from "./context/appContext";
 import { useGetUserMutation } from "./services/api";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
@@ -40,6 +41,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/add-expense" element={<AddExpense />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/day-to-day-expenses" element={<DayToDayExpenses />} />
       </Routes>
     </AppContext.Provider>
   );
