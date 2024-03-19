@@ -1,6 +1,12 @@
+
 const Expense = require("../models/expenseM");
 const User = require("../models/usersM");
 const sequelize = require("../utils/database");
+const S3Services = require("../services/Aws_s3_service");
+require("dotenv").config();
+
+
+
 exports.addExpense = async (req, res) => {
   const t = await sequelize.transaction();
   try {
@@ -20,7 +26,10 @@ exports.addExpense = async (req, res) => {
     const userDetails = await User.findByPk(UserId);
     const totalSpent = Number(userDetails.totalSpent) + Number(spent);
     // Introduce a deliberate error to trigger rollback
-    await User.update({ totalSpent }, { where: { id: UserId }, transaction: t });
+    await User.update(
+      { totalSpent },
+      { where: { id: UserId }, transaction: t }
+    );
     await t.commit();
     res.status(200).json(expenseDetails);
   } catch (err) {
@@ -29,6 +38,21 @@ exports.addExpense = async (req, res) => {
   }
 };
 
+exports.downloadExpense = async (req, res) => {
+  const UserId = req.user;
+  try {
+    console.log(UserId);
+    const expenceDetails = await Expense.findAll({ where: { UserId: UserId } });
+    if (expenceDetails.length === 0)
+      return res.status(404).json("No Expense Found");
+    const fileName = `Expense-${UserId}-${new Date}.txt`;
+    const fileUrl = await S3Services.UploadToS3(fileName, expenceDetails);
+    console.log(fileUrl);
+    res.status(200).json(fileUrl);
+  } catch (err) {
+    res.status(501).json(err.message);
+  }
+};
 exports.getExpense = async (req, res) => {
   const UserId = req.user;
   try {
@@ -36,7 +60,7 @@ exports.getExpense = async (req, res) => {
     const expenceDetails = await Expense.findAll({ where: { UserId: UserId } });
     if (expenceDetails.length === 0)
       return res.status(404).json("No Expense Found");
-   
+
     res.status(200).json(expenceDetails);
   } catch (err) {
     res.status(501).json(err.message);
@@ -49,7 +73,7 @@ exports.deleteExpense = async (req, res) => {
   console.log(UserId, expenseId);
   try {
     const expense = await Expense.findByPk(expenseId);
-    console.log(expense.spent)
+    console.log(expense.spent);
     if (!expense) return res.status(404).send("Not found.");
     if (expense.UserId != UserId) {
       return res
@@ -58,7 +82,10 @@ exports.deleteExpense = async (req, res) => {
     }
     const userDetails = await User.findByPk(UserId);
     const totalSpent = Number(userDetails.totalSpent) - Number(expense.spent);
-    await User.update({ totalSpent }, { where: { id: UserId }, transaction: t });
+    await User.update(
+      { totalSpent },
+      { where: { id: UserId }, transaction: t }
+    );
 
     await Expense.destroy({ where: { id: expenseId }, transaction: t });
     await t.commit();

@@ -84,9 +84,22 @@ export const appApi = createApi({
         method: "POST",
         body:email
       }),
-    })
+    }),
+    //Download Expense using AWS S3
+    downloadExpenses:builder.mutation({
+      query: (userToken) => ({
+        url: "/download-expense",
+        method: "POST",
+        body: userToken
+      }),
+    }),
 
   }),
+ 
+
+
+
+
 });
 
 export const {
@@ -99,7 +112,8 @@ export const {
   usePurchaseMembershipMutation,
   useUpdateOrderMutation,
   useShowLeaderboardMutation,
-  useForgotPasswordMutation
+  useForgotPasswordMutation,
+  useDownloadExpensesMutation
  
 } = appApi;
 

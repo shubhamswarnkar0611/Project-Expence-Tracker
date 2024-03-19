@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useShowLeaderboardMutation } from "../../services/api";
+import { useDownloadExpensesMutation, useShowLeaderboardMutation } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import SideBar from "../../components/SideBar";
 import Header from "../../components/Header";
 import { AppContext } from "../../context/appContext";
+import { saveAs } from 'file-saver';
 
 const DayToDayExpenses = () => {
   const [leaderboard, setLeaderboard] = useState([]);
-  const [showLeaderboard, { isLoading }] = useShowLeaderboardMutation();
-  let leaderboardData;
-  const navigate = useNavigate();
-  const { setUser, user } = useContext(AppContext);
+  const [showLeaderboard, { isLoading: leaderboardLoading }] = useShowLeaderboardMutation();
+  const [downloadExpenses,{ isLoading: downloadLoading }] = useDownloadExpensesMutation();
+  const { setUser, user,userToken } = useContext(AppContext);
 
   useEffect(() => {
     if (user) {
@@ -30,6 +30,16 @@ const DayToDayExpenses = () => {
     }
   };
 
+  const handleDownload = async () => {
+    try{
+    const S3response= await downloadExpenses({userToken})
+    console.log(S3response.data.Location)
+    saveAs(S3response.data.Location,"Expenses.txt")
+    }catch (err) {
+      toast.error('Error downloading file');
+    }
+  }
+
   return (
     <>
       <div>
@@ -43,9 +53,9 @@ const DayToDayExpenses = () => {
                   Day to Day Expenses
                 </h1>
                 <div className="mx-6 mt-3">
-                  <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-orange-400 group-hover:from-red-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                  <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-orange-400 group-hover:from-red-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800" onClick={handleDownload}>
                     <span class="relative px-3 py-2 transition-all ease-in duration-75 bg-white text-black rounded-md group-hover:bg-opacity-0">
-                      Download
+                    {downloadLoading ? <p>Please wait...</p> : <p>Download</p>}
                     </span>
                   </button>
                 </div>
