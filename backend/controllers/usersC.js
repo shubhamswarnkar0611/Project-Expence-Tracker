@@ -17,6 +17,8 @@ exports.signup = async (req, res, next) => {
       name,
       email,
       password: hashPassword,
+      isPremium:false
+
     });
 
     const authToken = jwt.sign({ userId: userDetails.id }, JWT_SECRETE);

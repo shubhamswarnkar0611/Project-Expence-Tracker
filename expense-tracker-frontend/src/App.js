@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Signup from "./pages/signup/Signup";
@@ -24,7 +24,7 @@ function App() {
       setUserToken(token);
       handleGetUser();
     }
-  }, [setUser]);
+  }, [setUser,navigate]);
 
   async function handleGetUser() {
     const userToken = localStorage.getItem("userToken");
