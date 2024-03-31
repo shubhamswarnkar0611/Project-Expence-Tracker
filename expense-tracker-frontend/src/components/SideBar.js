@@ -3,15 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/appContext";
 
 const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser, setUserToken } = useContext(AppContext);
+  const { user, setUser, setUserToken, isOpenSideBar, setIsOpenSideBar } =
+    useContext(AppContext);
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    console.log("isOpen before toggle:", isOpen);
-    setIsOpen(!isOpen);
-    console.log("isOpen after toggle:", isOpen);
+  // useEffect(()=>{
+  //   toggleSideBar();
+  // },[isOpenSideBar,toggleSideBar])
+  const toggleSideBar = () => {
+    setIsOpenSideBar(!isOpenSideBar);
   };
+
   useEffect(() => {
     if (user) {
       setUser(user);
@@ -26,40 +28,17 @@ const SideBar = () => {
 
   return (
     <>
-      <button
-        data-drawer-target="logo-sidebar"
-        data-drawer-toggle="logo-sidebar"
-        aria-controls="logo-sidebar"
-        type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200   "
-        onClick={toggleSidebar}
-      >
-        <span className="sr-only">Open sidebar</span>
-        <svg
-          className="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          ></path>
-        </svg>
-      </button>
-
       <aside
         id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 p-3 bg-#FCF7FF   "
+        className={`fixed md: top-0 left-0 z-40 w-62 h-screen transition-transform ${
+          !isOpenSideBar ? "-translate-x-full" : ""
+        } sm:translate-x-0 p-3 w-full sm:w-64  bg-opacity-65  md:bg-transparent bg-white   `}
         aria-label="Sidebar"
+
+        onClick={toggleSideBar}
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-white rounded-3xl shadow-lg ">
-          <a
-            href="https://flowbite.com/"
-            className="flex  items-center mt-4 mb-9 "
-          >
+        <div className="h-full px-3 py-4 w-[250px] overflow-y-auto bg-white rounded-3xl shadow-lg shadow-gray-400 ">
+          <a href="#" className="flex  items-center mt-4 mb-9 ">
             <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-#6952F1">
               SpentWise
             </span>
@@ -69,6 +48,7 @@ const SideBar = () => {
               <Link
                 to="/"
                 className="flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7 "
+                
               >
                 <svg
                   className="w-5 h-5 text-gray-900 transition duration-75 dark:text-black group-hover:text-white dark:group-hover:text-white"
@@ -153,10 +133,7 @@ const SideBar = () => {
             </li>
 
             <li>
-              <button
-                onClick={handleLogOUt}
-               className="w-full"
-              >
+              <button onClick={handleLogOUt} className="w-full">
                 <div className="flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7  ">
                   <svg
                     className="w-5 h-5 text-gray-900 transition duration-75 dark:text-black group-hover:text-white dark:group-hover:text-white"
@@ -173,7 +150,7 @@ const SideBar = () => {
                       d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
                     />
                   </svg>
-                  <p  className="flex ms-3 whitespace-nowrap ">LogOut</p>
+                  <p className="flex ms-3 whitespace-nowrap ">LogOut</p>
                 </div>
               </button>
             </li>

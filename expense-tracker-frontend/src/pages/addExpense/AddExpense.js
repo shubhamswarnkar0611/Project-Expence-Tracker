@@ -48,7 +48,7 @@ const AddExpense = () => {
               <div className="flex justify-between">
                 <div className="w-[90vw] mt-2  2xl:h-[10vh] h-[100%]   bg-white rounded-xl  mx-4">
                   <div className="flex  items-start justify-center flex-col h-full">
-                    <p className="mx-10 text-md text-#1E5D69  ">
+                    <p className="mx-10 text-md text-#1E5D69 p-2  ">
                       Enter the amount spent, provide a description of your
                       expense, select a category, and then confirm the spent
                       amount for your expense

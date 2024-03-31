@@ -40,10 +40,11 @@ export const appApi = createApi({
     }),
     //get-expense
     getExpense: builder.mutation({
-      query: (userToken) => ({
-        url: "/get-expense",
+      query: ( userToken, currentPage,perPage ) => ({
+        url: `/get-expense`,
         method: "POST",
-        body: userToken,
+        body: userToken,perPage,
+        params:{page:currentPage}
       }),
     }),
     //delete-expense

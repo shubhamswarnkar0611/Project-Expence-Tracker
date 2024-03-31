@@ -15,29 +15,26 @@ const DayToDayExpenses = () => {
   const navigate = useNavigate();
   const [expenses, setExpenses] = useState([]);
   const [getExpense, { isLoading: expenseLoading }] = useGetExpenseMutation();
+
   const [downloadExpenses, { isLoading: downloadLoading }] =
     useDownloadExpensesMutation();
   const { setUser, user, userToken } = useContext(AppContext);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(6);
+  const [nPages, setnPages] = useState();
+  const [perPage, setPerPage] = useState(8);
+
 
   useEffect(() => {
     if (user) {
       handleShowExpenses();
     }
-  }, [navigate]);
-
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = expenses.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(expenses.length / recordsPerPage);
+  }, [currentPage,perPage]);
 
   const handleShowExpenses = async () => {
     try {
-      const response = await getExpense({ userToken });
-      setExpenses(response.data);
-      console.log(response.data);
+      const response = await getExpense({ userToken, currentPage, perPage });
+      setExpenses(response.data.expenseDetails);
+      setnPages(response.data.nPages);
     } catch (err) {
       alert(err.message);
     }
@@ -81,44 +78,44 @@ const DayToDayExpenses = () => {
                 </div>
               </div>
               <div className="lg:flex ">
-                <div className=" mt-4 bg-white h-[70vh] shadow-lg mx-4 rounded-xl py-5 lg:w-[50vw] ">
+                <div className=" my-4 bg-white min-h-[60vh]  shadow-lg mx-4 rounded-xl py-5  lg:w-[50vw] ">
                   <p className=" text-xl  flex justify-center pb-3 text-#1E5D69 font-semibold">
                     Your Total Expense
                   </p>
-                  <div class=" flex justify-center items-center flex-col overflow-x-auto ">
-                    <table class="w-[80vw] sm:w-[40vw] md:w-[50vw] lg:w-[40vw] text-sm text-left rtl:text-right text-white border-2 border-#1E5D69 m-4  ">
+                  <div class="  flex justify-center items-center flex-col overflow-x-auto ">
+                    <table class="   w-[20vw] sm:w-[40vw] md:w-[40vw] lg:w-[40vw] text-sm text-left rtl:text-right text-white border-2 border-#1E5D69 m-4  ">
                       <thead class="text-xs bg-#A6C1C7 text-gray-900">
                         <tr>
                           <th scope="col" class="px-4 py-3">
                             S.No
                           </th>
-                          <th scope="col" class="px-6 py-3">
+                          <th scope="col" class="px-2 py-3">
                             Date
                           </th>
 
-                          <th scope="col" class="px-4 py-3">
+                          <th scope="col" class="px-2 py-3">
                             category
                           </th>
-                          <th scope="col" class="px-4 py-3">
+                          <th scope="col" class="px-2 py-3">
                             Description
                           </th>
 
-                          <th scope="col" class="px-6 py-3">
+                          <th scope="col" class="px-2 py-3">
                             Spent
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        {currentRecords ? (
-                          currentRecords.map((expense, index) => {
+                        {expenses ? (
+                          expenses.map((expense, index) => {
                             return (
                               <tr class="bg-white border-b dark:bg-white dark:border-gray-700">
-                                <td class="px-4 py-4 text-gray-900">
+                                <td class="pl-4 py-3 text-gray-900">
                                   {index + 1}
                                 </td>
                                 <td
                                   scope="row"
-                                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                                  class=" pr-3 py-3 font-medium text-gray-900 whitespace-nowrap "
                                 >
                                   {Date(expense.createdAt)
                                     .split(" ")
@@ -126,17 +123,17 @@ const DayToDayExpenses = () => {
                                     .join("-")}
                                 </td>
 
-                                <td class="px-4 py-4 text-gray-900">
+                                <td class="px-2 py-3  text-gray-900">
                                   {" "}
                                   {expense.category}
                                 </td>
-                                <td class="px-4 py-4 text-gray-900">
+                                <td class="px-2 py-3 text-gray-900">
                                   {" "}
                                   {expense.description}
                                 </td>
                                 <td
                                   scope="row"
-                                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                                  class="pr-6 py-3 font-medium text-gray-900 whitespace-nowrap "
                                 >
                                   ₹{expense.spent}
                                 </td>
@@ -148,13 +145,16 @@ const DayToDayExpenses = () => {
                         )}
                       </tbody>
                     </table>
-                    <div className="my-2">
-                      <Pagination
-                        nPages={nPages}
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                      />
-                    </div>
+                    {nPages && (
+                      <div className="mb-2 w-full">
+                        <Pagination
+                          nPages={nPages}
+                          currentPage={currentPage}
+                          setCurrentPage={setCurrentPage}
+                          setPerPage={setPerPage}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className=" mt-4 bg-white h-[70vh] shadow-lg mx-4 rounded-xl py-10 lg:w-[30vw] ">

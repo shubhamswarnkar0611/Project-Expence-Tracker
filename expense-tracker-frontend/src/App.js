@@ -12,6 +12,7 @@ import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
 
 function App() {
   const [userToken, setUserToken] = useState();
+  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const [user, setUser] = useState("");
   const [getUser, { isLoading }] = useGetUserMutation();
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{ userToken, setUserToken, user, setUser }}>
+    <AppContext.Provider value={{ userToken, setUserToken, user, setUser,isOpenSideBar,setIsOpenSideBar }}>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

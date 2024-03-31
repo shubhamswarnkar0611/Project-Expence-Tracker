@@ -1,11 +1,8 @@
-
 const Expense = require("../models/expenseM");
 const User = require("../models/usersM");
 const sequelize = require("../utils/database");
 const S3Services = require("../services/Aws_s3_service");
 require("dotenv").config();
-
-
 
 exports.addExpense = async (req, res) => {
   const t = await sequelize.transaction();
@@ -42,11 +39,11 @@ exports.downloadExpense = async (req, res) => {
   const UserId = req.user;
   try {
     console.log(UserId);
-    const expenceDetails = await Expense.findAll({ where: { UserId: UserId } });
-    if (expenceDetails.length === 0)
+    const expenseDetails = await Expense.findAll({ where: { UserId: UserId } });
+    if (expenseDetails.length === 0)
       return res.status(404).json("No Expense Found");
-    const fileName = `Expense-${UserId}-${new Date}.txt`;
-    const fileUrl = await S3Services.UploadToS3(fileName, expenceDetails);
+    const fileName = `Expense-${UserId}-${new Date()}.txt`;
+    const fileUrl = await S3Services.UploadToS3(fileName, expenseDetails);
     console.log(fileUrl);
     res.status(200).json(fileUrl);
   } catch (err) {
@@ -55,13 +52,31 @@ exports.downloadExpense = async (req, res) => {
 };
 exports.getExpense = async (req, res) => {
   const UserId = req.user;
+  const page = req.body.currentPage || 1;
+  const perPage = Number(req.body.perPage) || 8;
+  console.log(perPage)
+  const limit =perPage;
+  let offset = (page - 1) * limit;
+
   try {
-    console.log(UserId);
-    const expenceDetails = await Expense.findAll({ where: { UserId: UserId } });
-    if (expenceDetails.length === 0)
+    const totalExpenses = await Expense.count({ where: { UserId: UserId } });
+    console.log("totalExpenses", totalExpenses);
+    const expenseDetails = await Expense.findAll({
+      where: { UserId: UserId },
+      offset,
+      limit,
+    });
+    console.log(expenseDetails);
+    if (expenseDetails.length === 0)
       return res.status(404).json("No Expense Found");
 
-    res.status(200).json(expenceDetails);
+    res
+      .status(200)
+      .json({
+        expenseDetails,
+        nPages: Math.ceil(totalExpenses / limit),
+        currentPage: page,
+      });
   } catch (err) {
     res.status(501).json(err.message);
   }
