@@ -32,10 +32,10 @@ export const appApi = createApi({
 
     //Add-Expense
     addExpense: builder.mutation({
-      query: (expenseDetails) => ({
+      query: (expenseDetailsForm) => ({
         url: "/add-expense",
         method: "POST",
-        body: expenseDetails,
+        body: expenseDetailsForm,
       }),
     }),
     //get-expense

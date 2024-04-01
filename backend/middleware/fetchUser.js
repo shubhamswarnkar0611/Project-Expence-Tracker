@@ -4,6 +4,7 @@ const User=require("../models/usersM")
 
 const fetchUser = async(req, res, next) => {
   const token = req.body.userToken;
+  console.log("fetchUser",req.body);
   if (!token) {
     res.status(401).send( "please authentiacate using availd token" );
   }

@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
+
 import { AppContext } from "../context/appContext";
 
 const SideBar = () => {
@@ -34,7 +35,6 @@ const SideBar = () => {
           !isOpenSideBar ? "-translate-x-full" : ""
         } sm:translate-x-0 p-3 w-full sm:w-64  bg-opacity-65  md:bg-transparent bg-white   `}
         aria-label="Sidebar"
-
         onClick={toggleSideBar}
       >
         <div className="h-full px-3 py-4 w-[250px] overflow-y-auto bg-white rounded-3xl shadow-lg shadow-gray-400 ">
@@ -45,10 +45,13 @@ const SideBar = () => {
           </a>
           <ul className="space-y-2 font-medium">
             <li>
-              <Link
+              <NavLink
                 to="/"
-                className="flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7 "
-                
+                className={({ isActive}) =>
+                   isActive
+                    ? "flex items-center p-2  text-#1D1927 rounded-lg  bg-#A6C1C7"
+                    : "flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7"
+                }
               >
                 <svg
                   className="w-5 h-5 text-gray-900 transition duration-75 dark:text-black group-hover:text-white dark:group-hover:text-white"
@@ -61,12 +64,16 @@ const SideBar = () => {
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                 </svg>
                 <span className="ms-3">Dashboard</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/add-expense"
-                className="flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7 "
+                className={({ isActive}) =>
+                   isActive
+                    ? "flex items-center p-2  text-#1D1927 rounded-lg  bg-#A6C1C7"
+                    : "flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7"
+                }
               >
                 <svg
                   className="w-5 h-5 text-gray-900 transition duration-75 dark:text-black group-hover:text-white  dark:group-hover:text-white"
@@ -82,13 +89,17 @@ const SideBar = () => {
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   Add Expense
                 </span>
-              </Link>
+              </NavLink>
             </li>
             {user.isPremium && (
               <li>
-                <Link
+                <NavLink
                   to="/leaderboard"
-                  className="flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7  "
+                  className={({ isActive}) =>
+                   isActive
+                    ? "flex items-center p-2  text-#1D1927 rounded-lg  bg-#A6C1C7"
+                    : "flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7"
+                }
                 >
                   <svg
                     className="w-5 h-5 text-slate-900 transition duration-75 dark:text-black group-hover:text-white dark:group-hover:text-white"
@@ -105,14 +116,18 @@ const SideBar = () => {
                   <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700  dark:text-white group-hover:text-white ">
                     Pro
                   </span>
-                </Link>
+                </NavLink>
               </li>
             )}
 
             <li>
-              <Link
+              <NavLink
                 to="/day-to-day-expenses"
-                className="flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7 "
+                className={({ isActive}) =>
+                   isActive
+                    ? "flex items-center p-2  text-#1D1927 rounded-lg  bg-#A6C1C7"
+                    : "flex items-center p-2  text-#1D1927 rounded-lg  hover:bg-#A6C1C7"
+                }
               >
                 <svg
                   className="w-5 h-5 text-slate-900 transition duration-75 dark:text-black group-hover:text-white dark:group-hover:text-white"
@@ -126,10 +141,7 @@ const SideBar = () => {
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   Expense Sheet
                 </span>
-                <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700  dark:text-white group-hover:text-white ">
-                  Pro
-                </span>
-              </Link>
+              </NavLink>
             </li>
 
             <li>

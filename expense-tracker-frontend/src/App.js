@@ -9,6 +9,7 @@ import DayToDayExpenses from "./pages/dayToDayExpense/DayToDayExpenses";
 import { AppContext } from "./context/appContext";
 import { useGetUserMutation } from "./services/api";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [userToken, setUserToken] = useState();
@@ -19,13 +20,11 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
-    if (!token) {
-      navigate("/login");
-    } else {
+    if (token) {
       setUserToken(token);
       handleGetUser();
     }
-  }, [setUser,navigate]);
+  }, [setUser, navigate]);
 
   async function handleGetUser() {
     const userToken = localStorage.getItem("userToken");
@@ -34,15 +33,39 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{ userToken, setUserToken, user, setUser,isOpenSideBar,setIsOpenSideBar }}>
+    <AppContext.Provider
+      value={{
+        userToken,
+        setUserToken,
+        user,
+        setUser,
+        isOpenSideBar,
+        setIsOpenSideBar,
+      }}
+    >
       <Routes>
+      
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/add-expense" element={<AddExpense />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/day-to-day-expenses" element={<DayToDayExpenses />} />
+
+        {/* Protected Route */}
+
+        <Route 
+        path="/" 
+        element={<ProtectedRoute Page={Dashboard} />} />
+        <Route
+          path="/add-expense"
+          element={<ProtectedRoute Page={AddExpense} />}
+        />
+        <Route
+          path="/leaderboard"
+          element={<ProtectedRoute Page={Leaderboard} />}
+        />
+        <Route
+          path="/day-to-day-expenses"
+          element={<ProtectedRoute Page={DayToDayExpenses} />}
+        />
       </Routes>
     </AppContext.Provider>
   );

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require('express');
 const cors = require('cors');
 const User = require("./models/usersM")
@@ -10,6 +12,7 @@ const expenseRouter = require('./routes/expenseR');
 const orderRouter = require('./routes/orderR');
 const premiumRouter = require('./routes/premiumR');
 const forgotPasswordRouter = require('./routes/forgotPasswordR');
+const helmet =require("helmet");
 
 const sequelize = require('./utils/database');
 
@@ -17,6 +20,7 @@ const sequelize = require('./utils/database');
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json({extended: false}));
 
 app.use(userRouter);
@@ -42,6 +46,6 @@ ForgotPassword.belongsTo(User);
 sequelize.sync({force:false})
 .then(result=>{
     console.log(result)
-    app.listen(4000)
+    app.listen(process.env.DB_PORT || 4000)
 })
 .catch(err=>console.log(err))

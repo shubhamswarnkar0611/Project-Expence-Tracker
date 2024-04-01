@@ -8,6 +8,7 @@ import ExpenseList from "../../components/ExpenseList";
 import { useGetExpenseMutation } from "../../services/api";
 import toast, { Toaster } from "react-hot-toast";
 import Pagination from "../../components/Pagination";
+import Footer from "../../components/Footer";
 
 const Dashboard = () => {
   const [showExpenses, setShowExpense] = useState([]);
@@ -17,14 +18,13 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(8);
 
-
   console.log(showExpenses);
 
   async function handleGetExpense() {
     try {
       console.log(perPage, "Dash");
 
-      const response = await getExpense({userToken, currentPage,perPage});
+      const response = await getExpense({ userToken, currentPage, perPage });
       setShowExpense(response.data.expenseDetails);
       setnPages(response.data.nPages);
     } catch (err) {
@@ -35,9 +35,8 @@ const Dashboard = () => {
   useEffect(() => {
     if (user) {
       handleGetExpense();
-      
     }
-  }, [currentPage,perPage]);
+  }, [currentPage, perPage]);
 
   return (
     <>
@@ -45,15 +44,15 @@ const Dashboard = () => {
         <Toaster />
         <SideBar />
         <Header />
-        <div className=" sm:ml-64 sm:relative   ">
-          <div className=" lg:flex lg:justify-start shadow-lg p-4 bg-white my-2 rounded-xl lg:ml-8 mx-3 ml-6 2xl:ml-12 2xl:mr-8 ">
+        <div className=" sm:ml-64   ">
+          <div className=" lg:flex lg:justify-start shadow-lg p-4 bg-white my-2 rounded-xl lg:ml-8 mx-3 ml-6 2xl:ml-6 2xl:mr-8 ">
             <h1 className="font-bold text-xl    h-10 flex lg:w-1/2 justify-start text-#6952F1 px-1 items-center rounded-3xl ">
               Expense
             </h1>
           </div>
 
           <div className=" hidden sm:flex items-center sm:ml-6 sm:mr-3 flex-row md:flex-row  sm:flex-col sm:justify-center lg:ml-2 ">
-            <div className="  w-[53vw] mt-3  2xl:h-[15vh] h-[22vh] p-4  bg-white rounded-xl 2xl:ml-10  shadow-lg pb-7 mx-2 ml-6">
+            <div className="  w-[53vw] mt-3  2xl:h-[15vh] h-[22vh] p-4  bg-white rounded-xl 2xl:ml-5  shadow-lg pb-7 mx-2 ml-6">
               <div className="flex  items-start justify-center flex-col h-full">
                 <p className="mx-10 my-3  text-md  text-#1E5D69 font-semibold">
                   Your Expense
@@ -80,10 +79,10 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mb-6 mt-2  ">
-            <div className="w-[90vw] sm:w-[50vw] md:w-[61vw] lg:w-[70vw] 2xl:w-[80vw] mt-3  2xl:min-h-[55vh] h-[100%]   bg-white rounded-xl  shadow-lg 2xl:ml-6  ">
-              <div className="flex justify-center items-center xl:justify-start px-4 min-h-[46vh] py-5 flex-wrap ">
-                {showExpenses &&
+          <div className="flex justify-center mb-6 mt-4  ">
+            <div className="w-[90vw] sm:w-[50vw] md:w-[61vw] lg:w-[70vw] 2xl:w-[81vw] mt  2xl:min-h-[58vh]  bg-white rounded-xl  shadow-lg 2xl:ml-2  ">
+              <div className="flex justify-center items-center xl:justify-start px-4  pt-4 flex-wrap ">
+                {showExpenses.length != 0 ? (
                   showExpenses.map((expense) => {
                     return (
                       <ExpenseList
@@ -92,20 +91,26 @@ const Dashboard = () => {
                         onDelete={handleGetExpense}
                       />
                     );
-                  })}
+                  })
+                ) : (
+                  <p className="text-gray-400 lg:ml-[25vw] ">
+                    No Expenses Yet! Please add an expense above.
+                  </p>
+                )}
               </div>
-              {nPages && (
-                <div className="my-2 ">
+              <div className="mt-[2vh]    ">
+                {nPages ? (
                   <Pagination
                     nPages={nPages}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     setPerPage={setPerPage}
                   />
-                </div>
-              )}
+                ) : null}
+              </div>
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     </>

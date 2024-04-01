@@ -10,6 +10,7 @@ import Header from "../../components/Header";
 import { AppContext } from "../../context/appContext";
 import { saveAs } from "file-saver";
 import Pagination from "../../components/Pagination";
+import Footer from "../../components/Footer";
 
 const DayToDayExpenses = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const DayToDayExpenses = () => {
                 </div>
               </div>
               <div className="lg:flex ">
-                <div className=" my-4 bg-white min-h-[60vh]  shadow-lg mx-4 rounded-xl py-5  lg:w-[50vw] ">
+                <div className=" my-4 bg-white min-h-[73vh]  shadow-lg mx-4 rounded-xl py-5  lg:w-[50vw] ">
                   <p className=" text-xl  flex justify-center pb-3 text-#1E5D69 font-semibold">
                     Your Total Expense
                   </p>
@@ -145,7 +146,7 @@ const DayToDayExpenses = () => {
                         )}
                       </tbody>
                     </table>
-                    {nPages && (
+                    {nPages ? (
                       <div className="mb-2 w-full">
                         <Pagination
                           nPages={nPages}
@@ -154,10 +155,10 @@ const DayToDayExpenses = () => {
                           setPerPage={setPerPage}
                         />
                       </div>
-                    )}
+                    ): null}
                   </div>
                 </div>
-                <div className=" mt-4 bg-white h-[70vh] shadow-lg mx-4 rounded-xl py-10 lg:w-[30vw] ">
+                <div className=" mt-4 bg-white h-[73vh] shadow-lg mx-4 rounded-xl py-10 lg:w-[30vw] ">
                   <h1 className=" text-xs mx-10  flex px-2  justify-start text-gray-400   items-center rounded-xl ">
                     Something new is happening here! Stay tuned for updates and
                     special offers from our team.
@@ -165,6 +166,7 @@ const DayToDayExpenses = () => {
                 </div>
               </div>
             </div>
+            <Footer/>
           </div>
         </div>
       </div>

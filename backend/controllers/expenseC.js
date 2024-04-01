@@ -54,8 +54,8 @@ exports.getExpense = async (req, res) => {
   const UserId = req.user;
   const page = req.body.currentPage || 1;
   const perPage = Number(req.body.perPage) || 8;
-  console.log(perPage)
-  const limit =perPage;
+  console.log(perPage);
+  const limit = perPage;
   let offset = (page - 1) * limit;
 
   try {
@@ -67,16 +67,11 @@ exports.getExpense = async (req, res) => {
       limit,
     });
     console.log(expenseDetails);
-    if (expenseDetails.length === 0)
-      return res.status(404).json("No Expense Found");
-
-    res
-      .status(200)
-      .json({
-        expenseDetails,
-        nPages: Math.ceil(totalExpenses / limit),
-        currentPage: page,
-      });
+    res.status(200).json({
+      expenseDetails,
+      nPages: Math.ceil(totalExpenses / limit),
+      currentPage: page,
+    });
   } catch (err) {
     res.status(501).json(err.message);
   }
