@@ -13,6 +13,7 @@ const orderRouter = require('./routes/orderR');
 const premiumRouter = require('./routes/premiumR');
 const forgotPasswordRouter = require('./routes/forgotPasswordR');
 const helmet =require("helmet");
+const path = require("path");
 
 const sequelize = require('./utils/database');
 
@@ -22,6 +23,9 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json({extended: false}));
+
+
+
 
 app.use(userRouter);
 app.use(expenseRouter);
@@ -39,6 +43,7 @@ Order.belongsTo(User);
 
 User.hasMany(ForgotPassword);
 ForgotPassword.belongsTo(User);
+
 
 
 

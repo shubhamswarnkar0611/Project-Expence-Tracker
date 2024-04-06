@@ -11,10 +11,10 @@ const AddExpense = () => {
   const [addExpense, { isLoading }] = useAddExpenseMutation();
   const { userToken } = useContext(AppContext);
   const [expenseDetailsForm, setExpenseDetailsForm] = useState({
-    spent:"",
+    spent: "",
     description: "",
     category: "",
-    userToken:userToken,
+    userToken: userToken,
   });
   const navigate = useNavigate();
 
@@ -23,25 +23,21 @@ const AddExpense = () => {
 
     try {
       expenseDetailsForm.userToken = userToken;
-      console.log(expenseDetailsForm)
+      console.log(expenseDetailsForm);
       const expenseDetails = await addExpense(expenseDetailsForm);
       if (expenseDetails.error) toast.error("Opps Something Went Worng");
       else toast.success("Expense Added Successfully");
       navigate("/");
 
-      console.log(expenseDetailsForm)
-
-
+      console.log(expenseDetailsForm);
     } catch (e) {
       toast.error(e.message);
     }
   }
 
-  function handleChange(e){
-  const {name,value} =e.target
-  setExpenseDetailsForm({...expenseDetailsForm,[name]:value})
-   
-
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setExpenseDetailsForm({ ...expenseDetailsForm, [name]: value });
   }
 
   return (
@@ -59,9 +55,9 @@ const AddExpense = () => {
                 <p className="mx-3 text-sm text-gray-400   ">Details Below</p>
               </div>
               <div className="flex justify-between">
-                <div className="w-[90vw] mt-2  2xl:h-[10vh] h-[100%]   bg-white rounded-xl  mx-4">
+                <div className="w-[90vw] mt-2  2xl:h-[10vh] h-[100%] mb-1   bg-white rounded-2xl shadow-md mx-4">
                   <div className="flex  items-start justify-center flex-col h-full">
-                    <p className="mx-10 text-md text-#1E5D69 p-2  ">
+                    <p className="mx-10 text-md text-#1E5D69 py-4  ">
                       Enter the amount spent, provide a description of your
                       expense, select a category, and then confirm the spent
                       amount for your expense
@@ -131,12 +127,13 @@ const AddExpense = () => {
                   </div>
                 </div>
               </div>
+              <div className="mb-4">
+              <Footer />
             </div>
-            <Footer/>
+            </div>
+           
           </div>
-          
         </div>
-        
       </div>
       <Toaster />
     </>

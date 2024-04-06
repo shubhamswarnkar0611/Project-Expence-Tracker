@@ -7,7 +7,6 @@ import {
 } from "../services/api";
 import { FaUser } from "react-icons/fa";
 import { AppContext } from "../context/appContext";
-import SideBar from "./SideBar";
 import Menu from "./Menu";
 
 const Header = () => {
@@ -56,9 +55,11 @@ const Header = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  
+
   useEffect(() => {
     setMember(user.isPremium);
-  }, [setMember, navigate, user]);
+  }, [setMember, user]);
 
  
 
@@ -130,14 +131,14 @@ const Header = () => {
           <div className="mx-5 mt-1 flex">
             <Toaster />
             {member ? (
-              <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-red-500 to-indigo-400 group-hover:from-indigo-500 group-hover:to-indigo-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-                <span className="relative px-3 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              <button className="relative inline-flex items-center scale-75 md:scale-90 justify-center   overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-red-500 to-indigo-400 group-hover:from-indigo-500 group-hover:to-indigo-500 hover:text-white dark:text-white focus:ring-pink-200 dark:focus:ring-pink-800">
+                <span className="relative px-3 py-2 transition-all ease-in duration-75 bg-white dark:bg-neutral-800 rounded-md group-hover:bg-opacity-0">
                   Pro User
                 </span>
               </button>
             ) : (
               <button
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+                className="relative inline-flex items-center scale-75 md:scale-90 justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
                 onClick={handleBuyingMembership}
               >
                 <span className="relative px-3 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
@@ -145,10 +146,10 @@ const Header = () => {
                 </span>
               </button>
             )}
-            <div className="mx-4 hidden md:flex">
-              <span className="self-center pb-2 text-xl flex m font-semibold whitespace-nowrap dark:text-white hover:text-orange-400">
+            <div className="mx-4 flex">
+              <span className="self-center  text-xl flex m font-semibold whitespace-nowrap dark:text-white ">
                 <button onClick={handleOpenMenu}>
-                  <FaUser className="m-1 text-#6952F1 hover:shadow-md hover:text-indigo-800" />
+                  <FaUser className="m-1 text-#6952F1  hover:text-#978AB5" />
                 </button>
               </span>
             </div>
