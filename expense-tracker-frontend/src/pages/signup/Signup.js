@@ -40,7 +40,7 @@ const Signup = () => {
   return (
     <div className="signup">
       <Toaster />
-      <div className="text-white  border-2 border-gray-300 rounded-xl backdrop-saturate-150 backdrop-blur-lg bg-white/10  w-1/3 relative px-8 py-10 m-4 shadow-2xl shadow-slate-800  ">
+      <div className="text-white w-[80vw] md:w-[50vw] lg:w-[40vw]  border-2 border-gray-300 rounded-xl backdrop-saturate-150 backdrop-blur-lg bg-white/10  relative px-8 py-10 m-4 shadow-2xl shadow-slate-800  ">
         <form onSubmit={handleSignUp}>
           <h1 className="text-4xl text-center font-semibold">Sign Up</h1>
           <div className="relative size-full  my-8">

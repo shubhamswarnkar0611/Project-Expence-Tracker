@@ -24,12 +24,11 @@ const DayToDayExpenses = () => {
   const [nPages, setnPages] = useState();
   const [perPage, setPerPage] = useState(8);
 
-
   useEffect(() => {
     if (user) {
       handleShowExpenses();
     }
-  }, [currentPage,perPage]);
+  }, [currentPage, perPage]);
 
   const handleShowExpenses = async () => {
     try {
@@ -57,7 +56,7 @@ const DayToDayExpenses = () => {
         <div className="dashboard">
           <SideBar />
           <Header />
-          <div className=" sm:ml-64  h-26 sm:relative">
+          <div className=" sm:ml-64  h-26 ">
             <div className="rounded-lg  ">
               <div className=" flex justify-between shadow-lg p-4 bg-white my-2 rounded-xl mr-3 mx-4">
                 <h1 className="font-bold text-xl  h-10 flex lg:w-1/2 justify-start  text-#6952F1 items-center rounded-3xl  ">
@@ -65,10 +64,10 @@ const DayToDayExpenses = () => {
                 </h1>
                 <div className="mx-6 mt-3">
                   <button
-                    class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-indigo-300 to-orange-400 group-hover:from-red-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                    class="inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-indigo-300 to-orange-400 group-hover:from-red-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
                     onClick={handleDownload}
                   >
-                    <span class="relative px-3 py-2 transition-all ease-in duration-75 bg-white text-black rounded-md group-hover:bg-opacity-0">
+                    <span class="px-3 py-2 transition-all ease-in duration-75 bg-white text-black rounded-md group-hover:bg-opacity-0">
                       {downloadLoading ? (
                         <p>Please wait...</p>
                       ) : (
@@ -83,69 +82,71 @@ const DayToDayExpenses = () => {
                   <p className=" text-xl  flex justify-center pb-3 text-#1E5D69 font-semibold">
                     Your Total Expense
                   </p>
-                  <div class="  flex justify-center items-center flex-col overflow-x-auto ">
-                    <table class="   w-[20vw] sm:w-[40vw] md:w-[40vw] lg:w-[40vw] text-sm text-left rtl:text-right text-white border-2 border-#1E5D69 m-4  ">
-                      <thead class="text-xs bg-#A6C1C7 text-gray-900">
-                        <tr>
-                          <th scope="col" class="px-4 py-3">
-                            S.No
-                          </th>
-                          <th scope="col" class="px-2 py-3">
-                            Date
-                          </th>
+                  <div class="  flex justify-center items-center  flex-col overflow-x-auto ">
+                    <div className="min-h-[45vh]">
+                      <table class="w-[20vw]  sm:w-[40vw] md:w-[40vw] lg:w-[40vw] text-sm text-left rtl:text-right text-white border-2 border-#1E5D69 m-4  ">
+                        <thead class="text-xs bg-#A6C1C7 text-gray-900">
+                          <tr>
+                            <th scope="col" class="px-4 py-3">
+                              S.No
+                            </th>
+                            <th scope="col" class="px-2 py-3">
+                              Date
+                            </th>
 
-                          <th scope="col" class="px-2 py-3">
-                            category
-                          </th>
-                          <th scope="col" class="px-2 py-3">
-                            Description
-                          </th>
+                            <th scope="col" class="px-2 py-3">
+                              category
+                            </th>
+                            <th scope="col" class="px-2 py-3">
+                              Description
+                            </th>
 
-                          <th scope="col" class="px-2 py-3">
-                            Spent
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {expenses ? (
-                          expenses.map((expense, index) => {
-                            return (
-                              <tr class="bg-white border-b dark:bg-white dark:border-gray-700">
-                                <td class="pl-4 py-3 text-gray-900">
-                                  {index + 1}
-                                </td>
-                                <td
-                                  scope="row"
-                                  class=" pr-3 py-3 font-medium text-gray-900 whitespace-nowrap "
-                                >
-                                  {Date(expense.createdAt)
-                                    .split(" ")
-                                    .slice(1, 4)
-                                    .join("-")}
-                                </td>
+                            <th scope="col" class="px-2 py-3">
+                              Spent
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {expenses ? (
+                            expenses.map((expense, index) => {
+                              return (
+                                <tr class="bg-white border-b dark:bg-white dark:border-gray-700">
+                                  <td class="pl-4 py-3 text-gray-900">
+                                    {index + 1}
+                                  </td>
+                                  <td
+                                    scope="row"
+                                    class=" pr-3 py-3 font-medium text-gray-900 whitespace-nowrap "
+                                  >
+                                    {Date(expense.createdAt)
+                                      .split(" ")
+                                      .slice(1, 4)
+                                      .join("-")}
+                                  </td>
 
-                                <td class="px-2 py-3  text-gray-900">
-                                  {" "}
-                                  {expense.category}
-                                </td>
-                                <td class="px-2 py-3 text-gray-900">
-                                  {" "}
-                                  {expense.description}
-                                </td>
-                                <td
-                                  scope="row"
-                                  class="pr-6 py-3 font-medium text-gray-900 whitespace-nowrap "
-                                >
-                                  ₹{expense.spent}
-                                </td>
-                              </tr>
-                            );
-                          })
-                        ) : (
-                          <p className="bg-red-600 p-4 ">Add data</p>
-                        )}
-                      </tbody>
-                    </table>
+                                  <td class="px-2 py-3  text-gray-900">
+                                    {" "}
+                                    {expense.category}
+                                  </td>
+                                  <td class="px-2 py-3 text-gray-900">
+                                    {" "}
+                                    {expense.description}
+                                  </td>
+                                  <td
+                                    scope="row"
+                                    class="pr-6 py-3 font-medium text-gray-900 whitespace-nowrap "
+                                  >
+                                    ₹{expense.spent}
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <p className="bg-red-600 p-4 ">Add data</p>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
                     {nPages ? (
                       <div className="mb-2 w-full">
                         <Pagination
@@ -155,7 +156,7 @@ const DayToDayExpenses = () => {
                           setPerPage={setPerPage}
                         />
                       </div>
-                    ): null}
+                    ) : null}
                   </div>
                 </div>
                 <div className=" mt-4 bg-white h-[73vh] shadow-lg mx-4 rounded-xl py-10 lg:w-[30vw] ">
@@ -166,7 +167,7 @@ const DayToDayExpenses = () => {
                 </div>
               </div>
             </div>
-            <Footer/>
+            <Footer />
           </div>
         </div>
       </div>
