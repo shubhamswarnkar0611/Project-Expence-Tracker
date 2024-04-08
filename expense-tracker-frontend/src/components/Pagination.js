@@ -18,12 +18,12 @@ const Pagination = ({ nPages, currentPage, setCurrentPage, setPerPage }) => {
     <>
       <div className="flex m-4 md:flex-row flex-col items-center ">
         <div className=" flex justify-center md:justify-end mx-4 w-[50vw]">
-          <PaginationMenu menuList={menuList}  title={"Rows per page"} setPerPage={setPerPage} />
+          <PaginationMenu menuList={menuList} title={"Rows per page"} setPerPage={setPerPage} />
         </div>
-        <div className=" mx-4 my-6 w-[50vw] ">
+        <div className=" mx-4 my-6 w-[50vw]">
           <div className="flex justify-center
           md:justify-start">
-            <ul className="flex border-#1E5D69  shadow-gray-400 rounded-md ">
+            <ul className="flex border-#1E5D69 drop-shadow-sm shadow-gray-400 rounded-md ">
               <li>
                 <button
                   className=" px-4 py-2 hover:shadow-sm hover:bg-white bg-neutral-100  border-r-2 rounded-md border-gray-200  "

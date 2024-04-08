@@ -11,7 +11,7 @@ const PaginationMenu = ({ menuList, title, setPerPage }) => {
           onChange={(e) => setPerPage(e.target.value)}
         >
          { menuList.map((menu) => (
-              <option className="p-2" key={menu} value={menu}>{menu}</option>
+              <option className="p-2" value={menu}>{menu}</option>
             ))}
           
         </select>

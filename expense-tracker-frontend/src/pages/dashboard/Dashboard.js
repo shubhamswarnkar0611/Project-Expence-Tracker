@@ -51,8 +51,8 @@ const Dashboard = () => {
         <SideBar />
         <Header />
         <div className=" sm:ml-64   ">
-          <div className=" lg:flex lg:justify-start shadow-lg p-4 bg-white my-2 rounded-xl lg:ml-8 mx-3 ml-6 2xl:ml-6 2xl:mr-8 ">
-            <h1 className="font-bold text-xl    h-10 flex lg:w-1/2 justify-start text-#6952F1 px-1 items-center rounded-3xl ">
+          <div className=" lg:flex lg:justify-start flex-col shadow-lg p-4 bg-white my-1 rounded-xl mx-4 ml-8">
+            <h1 className="font-bold text-xl flex lg:w-1/2 justify-start text-#6952F1 px-1 items-center rounded-3xl ">
               Expense
             </h1>
             <p className="mx-3 text-sm text-gray-400   ">Details Below</p>
@@ -79,9 +79,7 @@ const Dashboard = () => {
                 <p className="mx-10 my-3  text-4xl text-#FCF7FF font-semibold">
                   +
                 </p>
-                <p className="  text-#FCF7FF font-semibold ">
-                  Add Expense
-                </p>
+                <p className="  text-#FCF7FF font-semibold ">Add Expense</p>
               </Link>
             </div>
           </div>

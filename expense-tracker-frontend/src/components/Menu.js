@@ -9,7 +9,7 @@ const Menu = (props) => {
   }
   return (
     <div onClick={handleMenu} className={`w-[100vw] h-[100vh] fixed`}>
-      <div className="bg-gray-100 min-w-[20vw] shadow-lg shadow-gray-400 rounded-lg min-h-[18vh] fixed right-12 top-20 transition ">
+      <div className="bg-gray-100 min-w-[20vw] shadow-lg shadow-gray-400 rounded-lg min-h-[18vh] fixed right-12 top-20 ">
         <ul className="text-sm">
           <li className="px-4 pt-3 pb-2 text-lg font-semibold text-#6952F1 hover:bg-gray-200 flex">
             <p>{userDetails.name} 🤩</p>
